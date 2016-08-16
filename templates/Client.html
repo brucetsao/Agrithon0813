@@ -1,0 +1,47 @@
+<html>
+<head>
+        <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+</head>
+<title>WebSocket</title>
+
+<script>
+    $(function() {
+    if ("WebSocket" in window) {
+        ws = new WebSocket("ws://" + document.domain + ":8009/websocket");
+        ws.onmessage = function (msg) {
+            var message = JSON.parse(msg.data);
+            $("p#log").append(message.output + '<hr />');
+        };
+    };
+
+    $('#chat_form input[name=text]').focus();
+
+    $("#chat_form").on('submit', function(e){
+        e.preventDefault();
+
+        var input = $('#chat_form input[name=text]');
+        var message = $(input).val();
+        $(input).val('');
+
+        ws.send(JSON.stringify({'output': message}));
+    });
+
+
+    window.onbeforeunload = function() {
+        ws.onclose = function () {};
+        ws.close()
+    };
+});
+
+</script>
+<body>
+ <p>Websocket with Flask, Gevent and Gevent-websocket</p>
+
+    <form id="chat_form" method="post">
+        <input type="text" name="text" />
+        <input type="submit" value="Send!" />
+    </form>
+
+    <p id="log"></p>
+
+</body>

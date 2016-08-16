@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<head>
+<title>My Trip a Travel Category Flat Bootstrap responsive Website Template | About :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="My Trip Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- bootstrap-css -->
+<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!--// bootstrap-css -->
+<!-- css -->
+<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all" />
+<link href="/static/css/table.css" rel="stylesheet">
+<!--// css -->
+<!-- font-awesome icons -->
+<link href="/static/css/font-awesome.css" rel="stylesheet">
+<link href="/static/css/landing-page.css" rel="stylesheet">
+<!-- //font-awesome icons -->
+<!-- font -->
+<link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+<!-- //font -->
+<script src="/static/js/jquery-1.11.1.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<!-- parallax -->
+<script src="/static/js/SmoothScroll.min.js"></script>
+<!-- //parallax -->
+</head>
+<body>
+	<!-- banner -->
+	<!-- //banner -->
+	<!-- blog -->
+		<div class="blog">
+				<!-- container -->
+				<div class="container">
+                       <div id="planContentByDay">
+
+                                    <div class="col-md-11 blog-top-left-grid">
+						                <div class="left-blog left-single">
+							                <div class="blog-left">
+
+                                                <div class="well">
+                                                    {% for plan in planList %}
+
+                                                            {% if plan.Type != '' %}
+                                                                {% if plan.Type == 'hotel' %}<i class="fa fa-home" aria-hidden="true"></i>{% endif %}
+                                                                {% if plan.Type == 'food' %}<i class="fa fa-cutlery" aria-hidden="true"></i>{% endif %}
+                                                                {% if plan.Type == 'spot' %}<i class="fa fa-camera" aria-hidden="true"></i>{% endif %}
+                                                                {{ plan.LocationName }}&nbsp;&nbsp;
+
+                                                                <i class="fa fa-arrow-right" aria-hidden="true"></i>&nbsp;&nbsp;
+                                                            {% endif %}
+
+                                                    {% endfor %}
+                                                </div>
+
+                                                 {% for plan in planList %}
+
+								                        <div class="single-left-left">
+                                                            {% if forloop.counter|divisibleby:2 %}
+                                                                 <div class="row">
+                                                                    <div class="col-lg-5 col-sm-6" >
+                                                                        <h3>
+                                                                            {% if plan.Type == 'hotel' %}<i class="fa fa-home" aria-hidden="true"></i>{% endif %}
+                                                                            {% if plan.Type == 'spot' %}<i class="fa fa-camera" aria-hidden="true"></i>{% endif %}
+                                                                            {% if plan.Type == 'food' %}<i class="fa fa-cutlery" aria-hidden="true"></i>{% endif %}{{ plan.PlanName }}</h3>
+                                                                        <h5>地點：{{ plan.LocationName }}</h5>
+                                                                        <h5>地址：{{ plan.Address }}</h5>
+
+                                                                    </div>
+                                                                    <div class="col-lg-5 col-lg-offset-1 col-sm-6" style="margin-top:5%">
+                                                                        <img src="/static/{{ plan.Type }}Pic.jpg" alt=""  height="200px">
+
+                                                                    </div>
+                                                                </div>
+                                                            {% else %}
+                                                                <div class="row">
+                                                                    <div class="col-lg-5 col-lg-offset-1 col-sm-push-7  col-sm-6">
+
+                                                                       <h3>
+                                                                            {% if plan.Type == 'hotel' %}<i class="fa fa-home" aria-hidden="true"></i>{% endif %}
+                                                                            {% if plan.Type == 'spot' %}<i class="fa fa-camera" aria-hidden="true"></i>{% endif %}
+                                                                            {% if plan.Type == 'food' %}<i class="fa fa-cutlery" aria-hidden="true"></i>{% endif %}{{ plan.PlanName }}</h3>
+                                                                        <h5>地點：{{ plan.LocationName }}</h5>
+                                                                        <h5>地址：{{ plan.Address }}</h5>
+                                                                    </div>
+                                                                    <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                                                                         <img  src="/static/{{ plan.Type }}Pic.jpg" alt=""  height="200px">
+
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+
+								</div>
+
+                                                {% endfor %}
+                                                <div class="alert alert-warning" style="margin-bottom:0" role="alert">
+
+                                                    <i class="fa fa-cutlery" aria-hidden="true"></i>&nbsp;&nbsp;
+                                                    <strong>餐食：&nbsp;&nbsp;</strong>
+                                                    {% for plan in planList %}
+
+                                                        {% if plan.Type == 'food' %}
+                                                            {{ plan.LocationName }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        {% endif %}
+
+                                                    {% endfor %}
+						                        </div>
+                        	                    <div class="alert alert-danger" role="alert">
+                                                    <i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;
+                                                    <strong>住宿：&nbsp;&nbsp;</strong>
+                                                    {% for plan in planList %}
+
+                                                        {% if plan.Type == 'hotel' %}
+                                                            {{ plan.LocationName }}
+                                                        {% endif %}
+
+
+                                                    {% endfor %}
+						                        </div>
+							                </div>
+                                        </div>
+					                </div>
+                                </div>
+
+
+            <br>
+            <br>
+            <br>
+        <div id="travellist">
+
+            <div class="table-title">
+                <h2 align="center">物品攜帶檢查表</h2>
+            </div>
+            <table class="table-fill">
+
+            <tbody>
+                <tr>
+                    <td ><center>✔</center></td>
+                    <td><center>物品</center></td>
+                    <td ><center>✔</center></td>
+                    <td><center>物品</center></td>
+                    <td ><center>✔</center></td>
+                    <td><center>物品</center></td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>證件（身分證、健保卡等）</td>
+                    <td ></td>
+                    <td>證件影本</td>
+                    <td ></td>
+                    <td>2吋照片X2</td>
+                </tr>
+                <tr>
+                <td ></td>
+                    <td>錢包(信用卡、外幣)</td>
+                    <td ></td>
+                    <td>手機</td>
+                    <td ></td>
+                    <td>外衣、外褲、外套</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>變電器</td>
+                    <td ></td>
+                    <td>行動電源/電池</td>
+                    <td ></td>
+                    <td>耳機</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>盥洗用具(牙刷、牙膏、洗面乳)</td>
+                    <td ></td>
+                    <td>毛巾／浴巾</td>
+                    <td ></td>
+                    <td>襪子</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>電子機票</td>
+                    <td ></td>
+                    <td>轉接插頭</td>
+                    <td ></td>
+                    <td>內衣褲、免洗褲</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>睡衣</td>
+                    <td ></td>
+                    <td>梳子</td>
+                    <td ></td>
+                    <td>帽子</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>傳輸線</td>
+                    <td ></td>
+                    <td>雨傘</td>
+                    <td ></td>
+                    <td>OK繃、棉花棒</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>訂房憑證/機場接送電話</td>
+                    <td ></td>
+                    <td>(隱形)眼鏡</td>
+                    <td ></td>
+                    <td>網路分享器</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>記憶卡</td>
+                    <td ></td>
+                    <td>自拍神器</td>
+                    <td ></td>
+                    <td>防曬用品</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>行李箱鎖／鑰匙</td>
+                    <td ></td>
+                    <td>衛生紙</td>
+                    <td ></td>
+                    <td>涼鞋/拖鞋</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>旅行行程表</td>
+                    <td ></td>
+                    <td>小水瓶</td>
+                    <td ></td>
+                    <td>背包</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>暖暖包</td>
+                    <td ></td>
+                    <td>泳衣</td>
+                    <td ></td>
+                    <td>雪衣、雪帽、風衣、圍巾</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>筆／筆記本</td>
+                    <td ></td>
+                    <td>塑膠袋</td>
+                    <td ></td>
+                    <td>筆電</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>生理食鹽水</td>
+                    <td ></td>
+                    <td>地圖</td>
+                    <td ></td>
+                    <td>夾鏈袋</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td>零食</td>
+                    <td ></td>
+                    <td>眼罩</td>
+                    <td ></td>
+                    <td>衣架</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td colspan="5">保養品(化妝水、護髮霜、面膜、乳液、護手霜、護唇膏)</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td colspan="5">化妝品(眉筆、粉餅、眼線筆、睫毛膏、假睫毛、腮紅、口紅、髮蠟、卸妝)</td>
+                </tr>
+                <tr>
+                    <td ></td>
+                    <td colspan="5">個人藥品(胃藥、暈車藥、眼藥水、感冒藥、防蚊液、燒燙傷藥、過敏藥)</td>
+                </tr>
+            </tbody></table>
+
+        </div>
+        <div id="costlist">
+
+            <div class="table-title">
+                <h2 align="center">旅遊帳本</h2>
+              </div>
+              <table class="table-fill">
+              <thead>
+                <tr>
+                  <th class="text-left">日期</th>
+                  <th class="text-left">商品</th>
+                  <th class="text-left">價格</th>
+                </tr>
+              </thead>
+                <tbody class="table-hover">
+
+                {% for i in "x"|ljust:"15" %}
+                  <tr>
+                    <td class="text-left">&nbsp;&nbsp;</td>
+                    <td class="text-left">&nbsp;&nbsp;</td>
+                    <td class="text-left">&nbsp;&nbsp;</td>
+                  </tr>
+
+                {%  endfor  %}
+
+              </tbody>
+              </table>
+
+        </div>
+        <div id="presentlist">
+              <div class="table-title">
+                <h2 align="center">送禮清單</h2>
+              </div>
+              <table class="table-fill">
+              <thead>
+                <tr>
+                  <th class="text-left">品名</th>
+                  <th class="text-left">可取得地點</th>
+                  <th class="text-left">欲送禮者</th>
+                </tr>
+              </thead>
+                <tbody class="table-hover">
+
+                {% for i in "x"|ljust:"15" %}
+                  <tr>
+                    <td class="text-left">&nbsp;&nbsp;</td>
+                    <td class="text-left">&nbsp;&nbsp;</td>
+                    <td class="text-left">&nbsp;&nbsp;</td>
+                  </tr>
+
+                {%  endfor  %}
+
+              </tbody>
+              </table>
+
+        </div>
+
+
+		        </div>
+
+            <!-- container -->
+        </div>
+		<!-- //blog -->
+	<!-- footer -->
+
+	<!-- //footer -->
+</body>
+</html>

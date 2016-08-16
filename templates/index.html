@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+<title>Green Web</title>
+<link href="../static/css/indexStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+<script type="text/JavaScript">
+<!--
+function map_over(CityName,point1,point2,img,tw_map) {
+	$(tw_map+" img").attr("src",img);
+	if(CityName!=""){
+	$("#CityName").text(CityName);
+	$("#point1").text(point1);
+	$("#point2").text(point2);
+                if ($('#city').is(":hidden")) {
+                    $('#city').fadeIn(200); //效果可變
+                }}
+}
+function map_out() {
+	$(".tw_map img").attr("src","../static/images/map/map00.png");
+	$(".matzu_map img").attr("src","./static/images/map/map25_0.png");
+	$(".penghu_map img").attr("src","./static/images/map/map23_0.png");
+	$(".kinmen_map img").attr("src","./static/images/map/map24_0.png");
+	$("#CityName").text("");
+	$("#point1").text("");
+	$("#point2").text("");
+}
+$(function() {
+    timer = setTimeout(city, 500);
+function city() {
+	 if ($("#CityName").text()=="") {
+                if ($('#city').is(":visible")) {
+                    $('#city').fadeOut(200); //效果可變
+                }
+    }
+    timer = setTimeout(city, 500);
+}
+});
+//-->
+</script>
+<body>
+
+	<!-- body start -->
+	<div id="body">
+		<a href="index.html" title="Green Web"><img src="../static/images/logo.gif" alt="Green Web" width="309" height="47" border="0" class="logo" /></a>
+		<h1>the way of success
+		lorem, sed vulputate </h1>
+		<div class="bodyText">
+			<h2><span>農遊</span> BINGO!</h2>
+		</div>
+        <table>
+            <tr>
+                <td><img src="../static/images/bingo.png"></td>
+                <td><div class="tw_map"><img src="../static/images/map/map00.png" usemap="#Map01Map" alt="Taiwan Map"></div>
+    <map name="Map01Map" id="Map01Map">
+      <area shape="poly" coords="139,33,146,37,150,23,143,14,134,22,139,33" href="/indexBingo?area=台北" onmouseout="map_out()" onmouseover="map_over('台北市','224','4471','../static/images/map/map01.png','.tw_map')" alt="台北市" title="台北市">
+      <area shape="poly" coords="151,21,160,28,167,20,159,14,151,19" href="/indexBingo?area=基隆" onmouseout="map_out()" onmouseover="map_over('基隆市','35','330','../static/images/map/map03.png','.tw_map')" alt="基隆市" title="基隆市">
+      <area shape="poly" coords="161,30,151,24,147,37,138,35,134,23,138,15,145,13,149,20,157,13,145,4,134,10,122,22,129,33,123,43,127,49,138,67,149,57,169,40,178,31,175,22,168,21" href="/indexBingo?area=新北" onmouseout="map_out()" onmouseover="map_over('新北市','303','3641','../static/images/map/map02.png','.tw_map')" alt="新北市" title="新北市">
+      <area shape="poly" coords="125,33,119,42,137,69,128,77,112,53,91,40,104,24,118,20" href="/indexBingo?area=桃園" onmouseout="map_out()" onmouseover="map_over('桃園市','102','1559','../static/images/map/map04.png','.tw_map')" alt="桃園市" title="桃園市">
+      <area shape="poly" coords="90,39,113,53,128,78,118,88,102,81,98,72,87,61,100,58,88,48,93,40" href="/indexBingo?area=新竹" onmouseout="map_out()" onmouseover="map_over('新竹縣','59','900','../static/images/map/map05.png','.tw_map')" alt="新竹縣" title="新竹縣">
+      <area shape="poly" coords="84,60,96,57,88,48,84,58" href="/indexBingo?area=新竹" onmouseout="map_out()" onmouseover="map_over('新竹市','26','413','images/map/map06.png','.tw_map')" alt="新竹市" title="新竹市">
+      <area shape="poly" coords="95,70,99,81,119,89,100,100,75,103,58,86,81,60" href="/indexBingo?area=苗栗" onmouseout="map_out()" onmouseover="map_over('苗栗縣','79','1079','../static/images/map/map07.png','.tw_map')" alt="苗栗縣" title="苗栗縣">
+      <area title="台中市" alt="台中市" onmouseout="map_out()" onmouseover="map_over('台中市','105','1426','../static/images/map/map08.png','.tw_map')" href="/indexBingo?area=台中" coords="76,104,102,101,121,91,132,94,128,108,80,121,73,133,59,122,53,117,46,110,59,88,76,104" shape="poly">
+      <area shape="poly" coords="59,126,72,135,79,122,126,110,109,169,99,188,76,184,72,173,58,156,58,146" href="/indexBingo?area=南投" onmouseout="map_out()" onmouseover="map_over('南投縣','188','2718','../static/images/map/map10.png','.tw_map')" alt="南投縣" title="南投縣">
+      <area shape="poly" coords="44,112,59,127,57,152,24,148" href="/indexBingo?area=彰化" onmouseout="map_out()" onmouseover="map_over('彰化縣','43','508','../static/images/map/map11.png','.tw_map')" alt="彰化縣" title="彰化縣">
+      <area shape="poly" coords="11,178,32,171,74,179,56,154,23,149,15,162,12,181" href="/indexBingo?area=雲林" onmouseout="map_out()" onmouseover="map_over('雲林縣','122','670','../static/images/map/map12.png','.tw_map')" alt="雲林縣" title="雲林縣">
+      <area shape="poly" coords="31,172,70,179,82,188,61,212,49,205,48,182,38,180,34,185,40,191,21,202,12,196,13,179" href="/indexBingo?area=嘉義" onmouseout="map_out()" onmouseover="map_over('嘉義縣','74','848','../static/images/map/map13.png','.tw_map')" alt="嘉義縣" title="嘉義縣">
+      <area shape="poly" coords="34,185,40,182,46,183,47,195,40,189" href="/indexBingo?area=嘉義" onmouseout="map_out()" onmouseover="map_over('嘉義市','15','178','../static/images/map/map14.png','.tw_map')" alt="嘉義市" title="嘉義市">
+      <area title="台南市" alt="台南市" onmouseout="map_out()" onmouseover="map_over('台南市','151','1833','../static/images/map/map15.png','.tw_map')" href="/indexBingo?area=台南" coords="12,198,21,203,42,192,48,196,49,206,61,212,39,239,24,241,16,243,15,232,6,226" shape="poly">
+      <area title="高雄市" alt="高雄市" onmouseout="map_out()" onmouseover="map_over('高雄市','171','2382','../static/images/map/map18.png','.tw_map')" href="/indexBingo?area=高雄" coords="16,243,39,240,84,186,100,189,95,200,76,247,45,248,42,288,27,272,23,257" shape="poly">
+      <area shape="poly" coords="46,250,75,248,82,254,78,261,68,269,72,302,79,306,84,306,78,339,64,337,61,308,39,287" href="/indexBingo?area=屏東" onmouseout="map_out()" onmouseover="map_over('屏東縣','138','1310','../static/images/map/map19.png','.tw_map')" alt="屏東縣" title="屏東縣">
+      <area shape="poly" coords="78,245,86,253,72,271,75,301,83,305,100,264,131,220,138,188,132,189,119,221,96,203" href="/indexBingo?area=台東" onmouseout="map_out()" onmouseover="map_over('台東縣','161','1249','../static/images/map/map20.png','.tw_map')" alt="台東縣" title="台東縣">
+      <area shape="poly" coords="161,102,132,94,112,164,96,202,117,219,136,186" href="/indexBingo?area=花蓮" onmouseout="map_out()" onmouseover="map_over('花蓮縣','196','2250','../static/images/map/map21.png','.tw_map')" alt="花蓮縣" title="花蓮縣">
+      <area shape="poly" coords="180,32,141,66,120,89,161,100,172,76,170,55" href="/indexBingo?area=宜蘭" onmouseout="map_out()" onmouseover="map_over('宜蘭縣','140','2093','../static/images/map/map22.png','.tw_map')" alt="宜蘭縣" title="宜蘭縣">
+    </map>
+    <h2><p id="CityName"></p></h2></td>
+            </tr>
+            </table>
+
+	<!-- body end -->	
+	<!-- footer start -->
+	<div id="footer">
+		<div class="footer">
+			
+			<p>&copy;green web. All rights reserved.</p>
+			<p class="valid"><a href="http://validator.w3.org/check?uri=referer" target="_blank" title="Valid XHTML" class="xhtml">XHTML</a> <a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank" title="Valid CSS" class="css">CSS</a></p><br class="spacer" />
+		Designed by : <a href="http://www.templateworld.com" title="Template World" target="_blank">Template World</a><span class="copy">| <span class="design"><a href="http://www.maadesigns.co.uk/">Design</a> downloaded from&nbsp;DH <a href="http://webtemplates.dezinehub.com">Website Templates</a></span></span><br class="spacer" />
+	  </div>
+	</div>
+	<!-- footer end -->
+   </div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>賓果！</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <!-- bootstrap-css -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!--// bootstrap-css -->
+    <!-- css -->
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all" />
+    <!--// css -->
+    <!-- font-awesome icons -->
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/landing-page.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <!-- //font-awesome icons -->
+    <!-- font -->
+    <link href='//fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- //font -->
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="../static/js/websocket.js"></script>
+</head>
+
+
+
+<script>
+    function getStatus(){
+        var list = ["[凸寶]去了景點：金車咖啡","[阿龜]連成一條線","[小智]完成任務（抓3隻水系神奇寶貝)","[含吉]去了景點：羅東夜市","[含吉]連成一條線","[凸寶]完成任務（跟老闆自拍)","[凸寶]連成一條線"]
+        n = Math.floor(Math.random() * (list.length));
+        $("#friendStatus").append(list[n]+"<br>");
+
+    }
+
+    function getPosition() {
+    var top    = document.documentElement.scrollTop;
+    var left   = document.documentElement.scrollLeft;
+    var height = document.documentElement.clientHeight;
+    var width  = document.documentElement.clientWidth;
+    return {top:top,left:left,height:height,width:width};
+    }
+    function showPop(id){
+        var width  = 500;  //彈出框的寬度
+        var height = 354;  //彈出框的高度
+        var obj    = document.getElementById("pop"+id);
+        obj.style.display  = "block";
+        obj.style.position = "absolute";
+        obj.style.zindex   = "999";
+        obj.style.width    = width + "px";
+        obj.style.height   = height + "px";
+        obj.style.background =  "white url(/static/images/board.jpg) center no-repeat";
+        var Position = getPosition();
+        leftadd = (Position.width-width)/2;
+        topadd  = (Position.height-height)/2;
+        obj.style.top  = (Position.top  + topadd)  + "px";
+        obj.style.left = (Position.left + leftadd) + "px";
+        window.onscroll = function (){
+            var Position   = getPosition();
+            obj.style.top  = (Position.top  + topadd)  +"px";
+            obj.style.left = (Position.left + leftadd) +"px";
+        };
+    }
+    function showPopSuggest(id){
+        var width  = 500;  //彈出框的寬度
+        var height = 354;  //彈出框的高度
+        var obj    = document.getElementById("suggest"+id);
+        obj.style.display  = "block";
+        obj.style.position = "absolute";
+        obj.style.zindex   = "999";
+        obj.style.width    = width + "px";
+        obj.style.height   = height + "px";
+        obj.style.background =  "white url(/static/images/board.jpg) center no-repeat";
+        var Position = getPosition();
+        leftadd = (Position.width-width)/2;
+        topadd  = (Position.height-height)/2;
+        obj.style.top  = (Position.top  + topadd)  + "px";
+        obj.style.left = (Position.left + leftadd) + "px";
+        window.onscroll = function (){
+            var Position   = getPosition();
+            obj.style.top  = (Position.top  + topadd)  +"px";
+            obj.style.left = (Position.left + leftadd) +"px";
+        };
+    }
+    function hidePop(id){
+        document.getElementById("pop"+id).style.display = "none";
+        var name = $("#pop"+id+" #missionName").text();
+        $("#mission").append(name + "|");
+    }
+    function hidePopSuggest(id){
+        document.getElementById("suggest"+id).style.display = "none";
+    }
+
+    $(document).ready(function() {
+        $("[id*=detailPanel]").css("display","none");
+
+        var winners = [
+                    ['1','2','3'],
+                    ['4','5','6'],
+                    ['7','8','9'],
+                    ['1','4','7'],
+                    ['2','5','8'],
+                    ['3','6','9'],
+                    ['1','5','9'],
+                    ['3','5','7']
+        ];
+        var possibleWinners = winners.length;
+        var selected = [];
+        var numberLine = 0;
+
+        $(".image").click(function () {
+            var list = ["店家贈送特製免費冰棒","消費現在95折唷","來就贈神秘小禮物一份","有Coupon!秘密!" ]
+            n = Math.floor(Math.random() * (list.length));
+            $("#coupon").val('本日店家優惠：'+ list[n]);
+
+            $("[id*=detailPanel]").hide()
+
+            this.setAttribute("src", "/static/images/bingoGrid.png");
+            //alert(this.id);
+            var clickedId = this.id;
+            showPop(clickedId);
+            $("#detailPanel"+clickedId).show();
+            $("#pop"+clickedId).show();
+            var id = clickedId;
+            var name = $("#text"+clickedId).text();
+            var type = $("#detailPanel"+clickedId+" .panel-body #planType").text()
+            var addr = $("#detailPanel"+clickedId+" .panel-body #planAddr").text()
+            //alert(type)
+            if(type == "類型：hotel "){
+                $("#footPrintContent").append("<i class='fa fa-home' aria-hidden='true'></i>&nbsp")
+            }
+            if(type == "類型：food "){
+                $("#footPrintContent").append("<i class='fa fa-cutlery' aria-hidden='true'></i>&nbsp")
+            }
+            if(type == "類型：spot "){
+                $("#footPrintContent").append("<i class='fa fa-camera' aria-hidden='true'></i>&nbsp")
+            }
+            $("#footPrintContent").append(name)
+            name = name.replace("名稱：", "")
+            type = type.replace("類型：", "")
+            addr = addr.replace("地址：", "")
+            $("#saveContent").append(name+"/"+type+"/"+addr + "|")
+
+            $("#footPrintContent").append("&nbsp<i class='fa fa-arrow-right' aria-hidden='true'></i>&nbsp")
+
+
+            selected.push(clickedId);
+
+            // Compare winners array to selected array for matches
+            var line =0;
+            for(var i = 0; i < possibleWinners; i++) {
+                var cellExists = 0;
+
+                for(var j = 0; j < 3; j++) {
+                    if($.inArray(winners[i][j], selected) > -1) {
+                        cellExists++;
+                    }
+                }
+
+                // If all 5 winner cells exist in selected array alert success message
+                if(cellExists == 3) {
+
+                    line = line + 1;
+
+                }
+            }
+            if(line>numberLine){
+                alert('連成一線!');
+                numberLine = line;
+            }
+
+             $("#numberLine").text("你目前共連了 "+line+" 條線");
+        });
+    });
+
+
+</script>
+
+<body>
+
+    <div id="bingoPanel">
+    <table>
+        <tr>
+            <td>
+                <table class="tableNew">
+                    {% for i in bingoPanel  %}
+
+                            <td>
+                                <!-- 這邊放行程的資料-->
+                                <div class="bingoGrid" id="bingoDiv{{ forloop.counter }}">
+                                    <!-- <img src="/static/{{ i.type }}Pic.jpg" class="bingoPic" id="image{{ forloop.counter }}" width="150" height="150" > -->
+                                    <!--<div style="background:url('/static/{{ i.type }}Pic.jpg')  no-repeat;width:150px;height:150px; ">{{ i.name }}</div> -->
+
+                                    <div style="position: relative; width: 150px; height: 150px;">
+                                        <img class="image" id="{{ forloop.counter }}" src="/static/{{ i.type }}Pic.jpg" width="150" height="150" alt="" style="opacity: 0.4">
+                                        <span id="text{{ forloop.counter }}" style="position: absolute; top: 80px; left: 50px; ">{{ i.name }}</span>
+
+                                    </div>
+
+                                </div>
+                            </td>
+
+                        {% if forloop.counter|divisibleby:3 %} <!-- 印出 tr   -->
+                            <tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </td>
+            <td>
+                <table>
+                    {% for i in bingoPanel  %}
+                        <tr>
+                            <td>
+                                <!-- 這邊放行程的資料-->
+                                <div id="detailPanel{{ forloop.counter }}" class="panel panel-warning" >
+                                    <div class="panel-heading">詳細資料</div>
+                                    <div class="panel-body" width="420" height="450">
+                                        <p id="planName">名稱：{{ i.name }}</p>
+                                        <p id="planAddr">地址：{{ i.address }}</p>
+                                        <p id="planType">類型：{{ i.type }}</p>
+                                        <iframe id="map{{ forloop.counter }}" width="450" height="250" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBauXaQfs3zBFkaE9PmIRReuQZZySALt_I&q={{ i.address }}" allowfullscreen></iframe>
+                                        <br>
+                                        <a href="javascript:showPopSuggest(1);"><img src="/static/images/suggestBtn.jpg" width="150" height="50" border="0"></a>
+                                        <a href="javascript:getStatus();" > . </a>
+                                        <h5 id="coupon">本日店家優惠：{{ coup }}</h5>
+                                    </div>
+                                 </div>
+
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                </table>
+            </td>
+            <td>
+                <div class="panel panel-primary" id="friendStatus"  style=" position: absolute;top: 0px;right: 0;width: 300px;height: 430px;">
+                  <div class="panel-heading">朋友狀態</div>
+                  <div class="panel-body" id="status"> </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+
+
+                 <div id="gamePanel" class="alert alert-danger">
+                    你目前的戰績：
+                    <p id="numberLine"></p>
+                    <p id="tmp"></p>
+                 </div>
+
+                <form action="/getInfo/" method="post">
+
+                    <textarea style="display:none;" rows="4" cols="50" id="saveContent" name="saveContent"></textarea>
+                    <input type="submit" id="submitBtn" value="產出旅遊手記" class="btn btn-danger">
+                </form>
+
+
+
+
+            </td>
+            <td>
+                <div id="gamePanel" class="alert alert-success" width="150">
+                    你完成的任務：
+                    <p id="mission"></p>
+                    <p ></p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+
+                <div class="panel panel-info" width="600">
+                  <div class="panel-heading">我的足跡</div>
+                  <div class="panel-body" id="footPrintContent"> </div>
+                </div>
+            </td>
+
+        </tr>
+    </table>
+
+
+    </div>
+
+         {% for name in missionList %}
+             <div id="pop{{ forloop.counter }}" class="pop" style="border:1px solid #CCC;display:none;">
+
+                <br>
+                 <h2 align="center">任務</h2>
+                 <h2 id="missionName" align="center"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ name  }}</h2>
+
+                 {% if "寶可夢" or "神奇寶貝" in name %}
+                     <span align="center">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                         <img  src="/static/images/pokemon.png" height="100"></span>
+                 {% endif %}
+                <br>
+                <span align="center">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+                    <a href="javascript:hidePop({{ forloop.counter }});" ><img src="/static/images/missionComplete.png" width="150" border="0"></a></span>
+
+
+            </div>
+        {% endfor  %}
+
+
+
+
+{% for suggest in suggestList %}
+    <div id="suggest{{ forloop.counter }}" class="suggest" style="border:1px solid #CCC;display:none;">
+    <br>
+    <br>
+        <h2 align="center">建議行程</h2>
+
+        <span align="center" width="200">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+
+        {{ suggest }}
+        </span>
+        <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="javascript:hidePopSuggest(1);" >關閉視窗</a>
+
+    </div>
+{% endfor %}
+     <div class="panel panel-primary" id="selfStaus"  style=" position: absolute;bottom: 0px;right: 0;width: 300px;height: 300px;">
+                  <div class="panel-heading">我的等級</div>
+                  <div class="panel-body" id="me">
+                      <table>
+                          <tr>
+                              <td align="center">
+                                    <img src="/static/images/weedle.png" width="100" align="center">
+                                  <br>
+                                  <img src="/static/images/novice.png" width="50" align="center">
+                                  <p> Level：1</p>
+
+                              </td>
+                              <td>
+                                  重大成就：<br>
+                                  **完成兩次農遊體驗<br>
+                                  **完成9個任務<br>
+                              </td>
+                          </tr>
+                      </table>
+
+                  </div>
+     </div>
+</body>
+</html>
